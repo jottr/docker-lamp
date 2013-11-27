@@ -30,7 +30,7 @@ RUN apt-get install -y -q curl git make wget
 # LANGS
 
 ## PHP
-RUN apt-get install -y -q php5 php5-cli php5-dev php-pear php5-fpm php5-common php5-mcrypt php5-gd php-apc php5-curl php5-tidy
+RUN apt-get install -y -q php5 php5-cli php5-dev php-pear php5-fpm php5-common php5-mcrypt php5-gd php-apc php5-curl php5-tidy php5-xmlrpc
 
 
 # SERVICES
@@ -66,8 +66,8 @@ RUN mysqld & sleep 2 && mysqladmin create mydb
 
 
 ## APP
-RUN rm -rf /var/www/*
-ADD app /var/www
+#RUN rm -rf /var/www/*
+#ADD app /var/www
 
 ## CREDENTIALS
 RUN echo "root:root" | chpasswd
