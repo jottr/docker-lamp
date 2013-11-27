@@ -63,6 +63,8 @@ RUN chmod 755 /etc/apache2/apache_foreground.sh
 ADD php.ini /etc/php5/apache2/php.ini
 RUN chmod 755 /etc/php5/apache2/php.ini
 
+RUN chown -R www-data:www-data /var/www
+
 ## MYSQL
 RUN apt-get install -y -q mysql-client mysql-server php5-mysql
 RUN mysqld & sleep 2 && mysqladmin create mydb
