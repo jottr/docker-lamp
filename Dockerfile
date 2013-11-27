@@ -53,6 +53,11 @@ RUN mkdir -p /var/run/sshd
 #RUN apt-get install -y -q imagemagick graphicsmagick graphicsmagick-libmagick-dev-compat php5-imagick
 #RUN pecl install imagick
 
+## COMPOSER
+RUN curl -sS https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/local/bin/composer
+RUN composer create-project silverstripe/installer /var/www/ 
+
 ## APACHE
 RUN apt-get install -y -q apache2 libapache2-mod-php5
 RUN a2enmod rewrite
