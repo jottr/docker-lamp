@@ -10,7 +10,7 @@ RUN apt-get install -y -q software-properties-common
 RUN add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
 RUN apt-get -y update
 
-#SHIMS
+# SHIMS
 
 ## Hack for initctl
 ## See: https://github.com/dotcloud/docker/issues/1024
@@ -60,7 +60,10 @@ RUN composer create-project silverstripe/installer /var/www/
 
 ## APACHE
 RUN apt-get install -y -q apache2 libapache2-mod-php5
+
+### Enable url rewrites
 RUN a2enmod rewrite
+RUN sed -i -e '\_<Directory \/var_,\_<\/Directory_  s_None_All_'  /etc/apache2/sites-available/default
 
 ADD apache_foreground.sh /etc/apache2/apache_foreground.sh
 RUN chmod 755 /etc/apache2/apache_foreground.sh
