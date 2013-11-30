@@ -20,6 +20,9 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # ENVIRONMENT
 ENV TZ Europe/Berlin
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
 
 # EDITORS
 RUN apt-get install -y -q vim-tiny
@@ -54,9 +57,9 @@ RUN mkdir -p /var/run/sshd
 #RUN pecl install imagick
 
 ## COMPOSER
-RUN curl -sS https://getcomposer.org/installer | php
-RUN mv composer.phar /usr/local/bin/composer
-RUN composer create-project silverstripe/installer /var/www/ 
+#RUN curl -sS https://getcomposer.org/installer | php
+#RUN mv composer.phar /usr/local/bin/composer
+#RUN composer create-project silverstripe/installer /var/www/ 
 
 ## APACHE
 RUN apt-get install -y -q apache2 libapache2-mod-php5
@@ -65,8 +68,8 @@ RUN apt-get install -y -q apache2 libapache2-mod-php5
 RUN a2enmod rewrite
 RUN sed -i -e '\_<Directory \/var_,\_<\/Directory_  s_None_All_'  /etc/apache2/sites-available/default
 
-ADD apache_foreground.sh /etc/apache2/apache_foreground.sh
-RUN chmod 755 /etc/apache2/apache_foreground.sh
+#ADD apache_foreground.sh /etc/apache2/apache_foreground.sh
+#RUN chmod 755 /etc/apache2/apache_foreground.sh
 
 ADD php.ini /etc/php5/apache2/php.ini
 RUN chmod 755 /etc/php5/apache2/php.ini
@@ -89,8 +92,9 @@ RUN echo "root:root" | chpasswd
 EXPOSE 80
 EXPOSE 22
 
-CMD ["/usr/bin/supervisord", "-n"]
-
+#CMD ["/usr/bin/supervisord", "-n"]
+ENTRYPOINT ["/usr/sbin/apache2"]
+CMD ["-D", "FOREGROUND"]
 
 # RESET
 
