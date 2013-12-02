@@ -1,5 +1,8 @@
-all: 
-	docker build -t jottr/lamp . 
+imagename=jottr/lamp
+
+build: 
+	docker build -t $(imagename) .
+	notify-send "Done building $(imagename)." 
 
 clean: 
-	docker rmi jottr/lamp .
+	docker rmi jottr/lamp 
