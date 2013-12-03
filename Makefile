@@ -5,4 +5,4 @@ build:
 	notify-send "Done building $(imagename)." 
 
 clean: 
-	docker rmi jottr/lamp 
+	docker rmi $(imagename)
