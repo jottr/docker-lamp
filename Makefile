@@ -1,4 +1,4 @@
-imagename=jottr/lamp
+imagename=jottr/apache
 
 build: 
 	docker build -t $(imagename) .
