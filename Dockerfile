@@ -39,10 +39,8 @@ RUN apt-get install -y -q vim-tiny
 # TOOLS
 RUN apt-get install -y -q curl git make wget
 
-
 ## PHP
 RUN apt-get install -y -q php5 php5-cli php5-dev php-pear php5-fpm php5-common php5-mcrypt php5-gd php-apc php5-curl php5-tidy php5-xmlrpc
-
 
 ## SUPERVISOR
 RUN apt-get install -y -q supervisor
@@ -60,7 +58,8 @@ RUN apt-get install -y -q imagemagick graphicsmagick graphicsmagick-libmagick-de
 RUN pecl install imagick
 
 ## MYSQL
-RUN apt-get install -y -q mysql-client mysql-server php5-mysql
+#RUN apt-get install -y -q mysql-client mysql-server php5-mysql
+RUN apt-get install -y -q mysql-client php5-mysql
 
 ## COMPOSER
 #RUN curl -sS https://getcomposer.org/installer | php
@@ -85,7 +84,7 @@ RUN chmod 755 /etc/php5/apache2/php.ini
 
 
 ## MYSQL
-RUN mysqld & sleep 2 && mysqladmin create mydb
+#RUN mysqld & sleep 2 && mysqladmin create mydb
 
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
@@ -98,4 +97,4 @@ EXPOSE 80
 EXPOSE 22
 
 
-ENTRYPOINT /bin/chown -R www-data:www-data /var/www && /usr/bin/supervisord -n 
+CMD /bin/chown -R www-data:www-data /var/www && /usr/bin/supervisord -n 
