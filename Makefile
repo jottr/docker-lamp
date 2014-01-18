@@ -1,8 +1,8 @@
-imagename=jottr/apache
+IMG:=jottr/$$(basename $$(pwd))
 
-build: 
-	docker build -t $(imagename) .
-	notify-send "Done building $(imagename)." 
+build:
+	docker build -t $(IMG) .
+	@notify-send "Done building $(IMG)"
 
-clean: 
-	docker rmi $(imagename)
+clean:
+	docker rmi $(IMG)
